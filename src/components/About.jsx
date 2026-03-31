@@ -51,8 +51,9 @@ const About = () => {
           </motion.div>
 
           <motion.p variants={itemVariants} className="text-xl text-slate-400 mb-10 leading-relaxed font-light">
-            An agile <span className="text-white font-medium">Operations & Service Leader</span> with a legal background and a passion for human-centric management. Delivering high-impact results across multi-national teams.
+            Dynamic and results-oriented customer service and operations leader with <span className="text-white font-medium">8+ years of experience</span>. Managing high-performing teams across East Africa and collaborating with global teams in fully remote environments.
           </motion.p>
+
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             {[

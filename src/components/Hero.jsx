@@ -88,8 +88,9 @@ const Hero = () => {
         </motion.h1>
 
         <motion.p variants={itemVariants} className="text-xl md:text-2xl text-slate-400 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-          Crafting <span className="text-white font-medium">seamless customer journeys</span> & leading high-performance operations with <span className="text-bottle-green font-medium">6+ years of excellence.</span>
+          Dynamic and results-oriented <span className="text-white font-medium italic">Customer Service & Operations Leader</span> with <span className="text-bottle-green font-medium">8+ years of experience</span>.
         </motion.p>
+
 
         <motion.div variants={itemVariants} className="flex flex-wrap items-center justify-center gap-4 md:gap-8 text-slate-400 mb-12">
            <div className="flex items-center gap-2 px-1 transition-colors hover:text-white group cursor-pointer">
