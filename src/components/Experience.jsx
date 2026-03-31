@@ -1,23 +1,25 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Briefcase, Calendar, MapPin, ChevronRight } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { Briefcase, Calendar, ChevronRight, GraduationCap } from 'lucide-react';
 
 const experiences = [
   {
     company: "Ready Works",
-    role: "Customer Happiness Manager (Remote)",
+    role: "Customer Happiness Manager",
     period: "Oct 2024 — Ongoing",
+    type: "Remote",
     description: [
-      "Resolved customer inquiries and technical issues with a 95%+ satisfaction rating.",
-      "Successfully onboarded 50+ enterprise clients, cutting implementation timelines by 30%.",
-      "Automated IT and operational workflows, resulting in a 25% improvement in efficiency.",
+      "Resolved customer inquiries with a 95%+ satisfaction rating.",
+      "Successfully onboarded 50+ enterprise clients, cutting timelines by 30%.",
+      "Automated IT and operational workflows, improving efficiency by 25%.",
       "Tracked customer usage metrics to increase platform utilization by 35%."
     ]
   },
   {
     company: "Optica Africa",
-    role: "Head of Customer Service (Kenya, Uganda & Rwanda)",
+    role: "Head of Customer Service",
     period: "Mar 2024 — Aug 2024",
+    type: "Regional",
     description: [
       "Developed and implemented operational strategies for high-performing teams.",
       "Mitigated operational risks across multi-national offices (Kenya, Uganda, Rwanda).",
@@ -26,109 +28,133 @@ const experiences = [
   },
   {
     company: "CCI Kenya Limited",
-    role: "Operations Manager (Shutterfly Campaign)",
+    role: "Operations Manager",
     period: "Nov 2023 — Mar 2024",
+    type: "Shutterfly Campaign",
     description: [
       "Coached team leaders on performance improvement via statistical analysis.",
       "Liaised with international clients on script updates and product changes.",
       "Implemented methods to enhance team efficiency and service delivery."
     ]
   },
-  {
-    company: "CCI Kenya Limited",
-    role: "Team Manager / Team Lead Manager",
-    period: "July 2022 — Nov 2023",
-    description: [
-      "Managed 25 agents' welfare and acted as primary POC for campaign operations.",
-      "Conducted weekly (WBR) and monthly (MBR) business reviews with global clients.",
-      "Created performance trackers for lateness, attrition, and process health indicators (PHI)."
-    ]
-  },
-  {
-    company: "CCI Kenya Limited",
-    role: "Call Center Agent (Team Captain & Flow support)",
-    period: "Nov 2021 — June 2022",
-    description: [
-        "Provided quality customer assistance via calls and chats.",
-        "Supported agents on the floor with product knowledge and flow support.",
-        "Coached new hires and enforced attendance/time management."
-    ]
-  },
-  {
-    company: "Expended Data Networks LTD",
-    role: "IT Technician",
-    period: "Sept 2017 — Sept 2020",
-    description: [
-        "Consulted clients on after-sales services and conducted site inspections.",
-        "Provided technical solutions and managed project completion timelines.",
-        "Led project walkthroughs with clients to assess work quality and address concerns."
-    ]
-  },
-  {
-    company: "Clear Kenya International (Mombasa)",
-    role: "In-House Paralegal",
-    period: "April 2012 — Sept 2012",
-    description: [
-        "Drafted legal documents (plaints, affidavits) and handled court registry filings.",
-        "Managed mediation and arbitration for out-of-court settlements.",
-        "Provided civic education and legal aid to communities and inmates at Shimo La Tewa prison."
-    ]
-  }
 ];
+
+const ExperienceCard = ({ exp, index }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["7deg", "-7deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-7deg", "7deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: -30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+      className="relative group cursor-default"
+    >
+      <div 
+        style={{ transform: "translateZ(50px)" }}
+        className="glass-card group-hover:border-bottle-green/40 transition-colors duration-500"
+      >
+        <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+          <div className="space-y-1">
+            <h3 className="text-2xl font-black text-white tracking-tight group-hover:text-bottle-green transition-colors">{exp.role}</h3>
+            <div className="flex items-center gap-2 text-slate-300 font-semibold text-sm">
+                <Briefcase className="w-4 h-4 text-bottle-green" />
+                <span className="tracking-wide uppercase">{exp.company}</span>
+                <span className="text-slate-600">•</span>
+                <span className="text-bottle-green/80 italic lowercase">{exp.type}</span>
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-2 px-4 py-2 bg-bottle-green/5 rounded-2xl border border-bottle-green/10 text-slate-400 text-xs font-bold font-mono">
+             <Calendar className="w-3 h-3 text-bottle-green" />
+             {exp.period}
+          </div>
+        </div>
+
+        <ul className="space-y-4">
+           {exp.description.map((item, i) => (
+             <li key={i} className="flex items-start gap-4 text-slate-400 text-sm leading-relaxed group/li">
+               <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-bottle-green group-hover/li:scale-150 transition-transform shadow-[0_0_8px_rgba(0,106,78,0.6)]" />
+               <span className="group-hover/li:text-slate-200 transition-colors">{item}</span>
+             </li>
+           ))}
+        </ul>
+      </div>
+    </motion.div>
+  );
+};
 
 const Experience = () => {
   return (
-    <section id="experience" className="py-24 px-8 max-w-6xl mx-auto">
-      <div className="flex items-center gap-4 mb-16 px-4">
-          <div className="w-12 h-1 bg-bottle-green rounded-full" />
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Professional <span className="text-bottle-green font-light italic">Experience</span></h2>
-      </div>
+    <section id="experience" className="py-32 px-8 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="flex flex-col mb-20 items-center text-center">
+            <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                className="w-16 h-1 bg-gradient-to-r from-transparent via-bottle-green to-transparent rounded-full mb-4" 
+            />
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white">
+                CRAFTING <span className="text-bottle-green italic font-light glow-text">EXCELLENCE</span>
+            </h2>
+            <p className="text-slate-500 mt-4 max-w-xl font-medium tracking-wide uppercase text-xs">
+                A Journey through Operations & Customer Happiness Management
+            </p>
+        </div>
 
-      <div className="relative border-l border-white/5 ml-4 pl-8 space-y-16">
-        {experiences.map((exp, index) => (
-          <motion.div 
-            key={index}
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="relative"
-          >
-            {/* Timeline Dot */}
-            <div className="absolute -left-[41px] top-2 w-4 h-4 rounded-full bg-bottle-green border-4 border-slate-950 shadow-[0_0_15px_rgba(0,106,78,0.5)]" />
-            
-            <div className="glass-card hover:border-bottle-green/30">
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-1">{exp.role}</h3>
-                  <div className="flex items-center gap-3 text-bottle-green font-medium">
-                    <Briefcase className="w-4 h-4" />
-                    <span>{exp.company}</span>
-                  </div>
-                </div>
-                
-                <div className="flex flex-col items-start md:items-end gap-1 px-4 py-2 bg-white/5 rounded-xl text-slate-400 text-sm">
-                   <div className="flex items-center gap-2">
-                       <Calendar className="w-3.5 h-3.5" />
-                       {exp.period}
-                   </div>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 gap-12 max-w-4xl mx-auto">
+          {experiences.map((exp, index) => (
+            <ExperienceCard key={index} exp={exp} index={index} />
+          ))}
+        </div>
 
-              <ul className="space-y-4">
-                 {exp.description.map((item, i) => (
-                   <li key={i} className="flex items-start gap-3 text-slate-400 text-sm leading-relaxed">
-                     <ChevronRight className="w-4 h-4 text-bottle-green shrink-0 mt-0.5" />
-                     {item}
-                   </li>
-                 ))}
-              </ul>
+        <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="mt-20 text-center"
+        >
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 text-slate-400 text-sm">
+                <GraduationCap className="w-5 h-5 text-bottle-green" />
+                <span>See full career history in my CV</span>
+                <ChevronRight className="w-4 h-4" />
             </div>
-          </motion.div>
-        ))}
+        </motion.div>
       </div>
+
+      {/* Decorative vertical line */}
+      <div className="absolute left-1/2 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-white/5 to-transparent -translate-x-1/2 -z-10" />
     </section>
   );
 };
 
 export default Experience;
+

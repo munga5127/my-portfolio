@@ -1,89 +1,111 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, Send } from 'lucide-react';
+import { Mail, Phone, Send, MessageSquare, MapPin } from 'lucide-react';
 
 const Contact = () => {
   return (
-    <section id="contact" className="py-24 px-8 bg-white/[0.02] border-t border-white/5">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <section id="contact" className="py-32 px-8 relative overflow-hidden bg-slate-950/40">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           <motion.div 
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="flex flex-col justify-center"
           >
-            <div className="flex items-center gap-4 mb-6">
-                <div className="w-8 h-1 bg-bottle-green rounded-full" />
-                <h2 className="text-3xl font-bold tracking-tight">Get In <span className="text-bottle-green">Touch</span></h2>
+            <div className="flex flex-col mb-10">
+                <motion.div 
+                    initial={{ width: 0 }}
+                    whileInView={{ width: 48 }}
+                    className="h-1 bg-bottle-green rounded-full mb-6" 
+                />
+                <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-tight">
+                    LET'S <span className="text-bottle-green italic font-light glow-text">CONNECT</span>
+                </h2>
+                <p className="text-slate-400 mt-8 text-xl font-light leading-relaxed max-w-md">
+                    Ready to elevate your customer operations? Let's discuss how we can drive <span className="text-white font-medium">real impact</span> together.
+                </p>
             </div>
             
-            <p className="text-lg text-slate-400 mb-10 max-w-md font-light leading-relaxed">
-              Looking for a results-driven customer service leader or want to discuss a potential partnership? I'm always open to new opportunities.
-            </p>
-
-            <div className="space-y-6">
-               <a href="mailto:nenidedan@gmail.com" className="flex items-center gap-6 group">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all group-hover:border-bottle-green/50 group-hover:bg-bottle-green/10">
+            <div className="space-y-8">
+               <motion.div whileHover={{ x: 10 }} className="flex items-center gap-6 group">
+                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all group-hover:border-bottle-green/50 group-hover:bg-bottle-green/10 shadow-lg">
                      <Mail className="w-6 h-6 text-bottle-green" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Email</h4>
-                    <span className="text-slate-300 font-medium">nenidedan@gmail.com</span>
+                    <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-1">Direct Email</h4>
+                    <span className="text-white font-black tracking-tight text-lg group-hover:text-bottle-green transition-colors">nenidedan@gmail.com</span>
                   </div>
-               </a>
+               </motion.div>
 
-               <a href="tel:0724627842" className="flex items-center gap-6 group">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all group-hover:border-bottle-green/50 group-hover:bg-bottle-green/10">
+               <motion.div whileHover={{ x: 10 }} className="flex items-center gap-6 group">
+                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all group-hover:border-bottle-green/50 group-hover:bg-bottle-green/10 shadow-lg">
                      <Phone className="w-6 h-6 text-bottle-green" />
                   </div>
                   <div>
-                    <h4 className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-1">Phone</h4>
-                    <span className="text-slate-300 font-medium">0724 627 842</span>
+                    <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-1">Mobile</h4>
+                    <span className="text-white font-black tracking-tight text-lg group-hover:text-bottle-green transition-colors">0724 627 842</span>
                   </div>
-               </a>
+               </motion.div>
 
-               {/* LinkedIn removed as per user request */}
+               <motion.div whileHover={{ x: 10 }} className="flex items-center gap-6 group">
+                  <div className="w-16 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center transition-all group-hover:border-bottle-green/50 group-hover:bg-bottle-green/10 shadow-lg">
+                     <MapPin className="w-6 h-6 text-bottle-green" />
+                  </div>
+                  <div>
+                    <h4 className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-1">Locality</h4>
+                    <span className="text-white font-black tracking-tight text-lg group-hover:text-bottle-green transition-colors">Nairobi, Kenya</span>
+                  </div>
+               </motion.div>
             </div>
           </motion.div>
 
           <motion.div 
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="glass-card !bg-white/[0.03] p-10 border-white/5"
+            className="glass-card !bg-white/[0.02] p-10 md:p-12 border-white/10 relative overflow-hidden"
           >
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400">Name</label>
-                  <input type="text" className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-bottle-green/50 focus:ring-1 focus:ring-bottle-green/30 outline-none transition-all" placeholder="John Doe" />
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-bottle-green to-transparent opacity-50" />
+            
+            <form className="space-y-8 relative z-10">
+              <div className="flex items-center gap-3 mb-8">
+                <MessageSquare className="w-5 h-5 text-bottle-green" />
+                <h3 className="text-sm font-black uppercase tracking-[0.2em] text-slate-300">Quick Message</h3>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Your Name</label>
+                  <input type="text" className="w-full px-5 py-4 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-bottle-green/50 focus:ring-4 focus:ring-bottle-green/5 outline-none transition-all placeholder:text-slate-700 text-white font-medium" placeholder="E.g. John Doe" />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-slate-400">Email</label>
-                  <input type="email" className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-bottle-green/50 focus:ring-1 focus:ring-bottle-green/30 outline-none transition-all" placeholder="john@example.com" />
+                <div className="space-y-3">
+                  <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Email Address</label>
+                  <input type="email" className="w-full px-5 py-4 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-bottle-green/50 focus:ring-4 focus:ring-bottle-green/5 outline-none transition-all placeholder:text-slate-700 text-white font-medium" placeholder="john@company.com" />
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400">Subject</label>
-                <input type="text" className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-bottle-green/50 focus:ring-1 focus:ring-bottle-green/30 outline-none transition-all" placeholder="Collaboration Inquiry" />
+              <div className="space-y-3">
+                <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Your Message</label>
+                <textarea className="w-full px-5 py-4 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-bottle-green/50 focus:ring-4 focus:ring-bottle-green/5 outline-none transition-all min-h-[160px] placeholder:text-slate-700 text-white font-medium resize-none" placeholder="How can I help you today?" />
               </div>
 
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-slate-400">Message</label>
-                <textarea className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl focus:border-bottle-green/50 focus:ring-1 focus:ring-bottle-green/30 outline-none transition-all min-h-[150px]" placeholder="Hello Dedan, I'd like to talk about..." />
-              </div>
-
-              <button type="submit" className="w-full btn-primary flex items-center justify-center gap-2 group py-4">
-                 Send Message
-                 <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <button type="submit" className="w-full btn-primary flex items-center justify-center gap-3 group py-5 text-lg font-black tracking-tight">
+                 SEND INQUIRY
+                 <Send className="w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
               </button>
             </form>
           </motion.div>
         </div>
+      </div>
+      
+      {/* Decorative background text */}
+      <div className="absolute -bottom-10 left-10 text-[10rem] font-black text-white/[0.01] select-none pointer-events-none -rotate-6">
+        CONTACT
       </div>
     </section>
   );
 };
 
 export default Contact;
+
