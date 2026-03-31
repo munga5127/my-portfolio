@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bottle-green: #006A4E;
+  --color-bottle-green-50: #E6F4F1;
+  --color-bottle-green-100: #CDE9E3;
+  --color-bottle-green-200: #9BD3C7;
+  --color-bottle-green-300: #69BCAA;
+  --color-bottle-green-400: #37A68E;
+  --color-bottle-green-500: #006A4E;
+  --color-bottle-green-600: #005F46;
+  --color-bottle-green-700: #004D39;
+  --color-bottle-green-800: #003B2C;
+  --color-bottle-green-900: #00291F;
+  --color-bottle-green-950: #001A14;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-950 text-slate-100 selection:bg-bottle-green/30;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply px-6 py-2.5 bg-bottle-green text-white rounded-full font-medium transition-all hover:bg-bottle-green-600 hover:shadow-lg hover:shadow-bottle-green/20 active:scale-95;
+  }
+  
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 transition-all hover:bg-white/10;
+  }
+
+  .nav-link {
+    @apply relative text-sm font-medium text-slate-400 transition-colors hover:text-white;
+  }
+
+  .nav-link::after {
+    @apply content-[''] absolute -bottom-1 left-0 w-0 h-0.5 bg-bottle-green transition-all duration-300;
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+}
