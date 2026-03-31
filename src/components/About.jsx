@@ -57,7 +57,7 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             {[
-              { icon: <ShieldCheck className="w-5 h-5 text-bottle-green" />, title: "Operations Leader", desc: "6+ years scaling teams across Kenya, Uganda, and Rwanda." },
+              { icon: <ShieldCheck className="w-5 h-5 text-bottle-green" />, title: "Operations Leader", desc: "8+ years scaling teams across Kenya, Uganda, and Rwanda." },
               { icon: <Award className="w-5 h-5 text-bottle-green" />, title: "LLB Graduate", desc: "Legal expertise driving compliance and risk mitigation." },
               { icon: <Globe className="w-5 h-5 text-bottle-green" />, title: "Remote Veteran", desc: "Expert in leading global, distributed customer happiness teams." },
               { icon: <User className="w-5 h-5 text-bottle-green" />, title: "Human Centric", desc: "Dedicated to mental health advocacy and customer happiness." }
