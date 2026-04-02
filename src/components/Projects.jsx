@@ -1,3 +1,5 @@
+import React from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { ExternalLink, Code2, Heart, Lightbulb, ArrowUpRight } from 'lucide-react';
 
 const Github = (props) => (
